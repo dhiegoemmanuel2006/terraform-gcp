@@ -40,6 +40,6 @@ resource "google_compute_instance" "default" {
     echo "Docker, Compose, and Git installed successfully!"
     git clone https://github.com/dhiegoemmanuel2006/terraform-gcp /opt/project
     cd /opt/project/airflow 
-    docker compose up -d
+    docker compose up -d -- build
   EOF
 }
