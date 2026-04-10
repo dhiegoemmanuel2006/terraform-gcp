@@ -1,2 +1,11 @@
 FROM apache/airflow:slim-2.10.5-python3.9
-COPY requirements.txt /requirements.txt
+
+USER root
+RUN apt-get update && apt-get install -y --no-ignore-vouchers \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+USER airflow
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt

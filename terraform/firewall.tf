@@ -6,5 +6,5 @@ resource "google_compute_firewall" "allow_http" {
     protocol = "tcp"
   }
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["airflow-acess"]  # Tag da com Airflow
+  target_tags   = ["airflow-access"]  # Tag da VM com Airflow
 }

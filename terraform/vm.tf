@@ -14,7 +14,7 @@ resource "google_compute_instance" "default" {
   machine_type = "e2-small"
   zone         = "us-central1-a"
 
-tags = ["airflow-acess"]
+  tags = ["airflow-acess"]
 
   boot_disk {
     initialize_params {
@@ -31,13 +31,15 @@ tags = ["airflow-acess"]
 
   metadata_startup_script = <<-EOF
     #!/bin/bash
-    set -e  # Exit on error
+    set -e  # Finaliza caso houver erro
     apt-get update -y
     apt-get install -y git curl docker.io docker-compose
     systemctl start docker
     systemctl enable docker
     usermod -aG docker $(id -un)  # Add user to docker group
     echo "Docker, Compose, and Git installed successfully!"
-    git clone 
+    git clone https://github.com/dhiegoemmanuel2006/terraform-gcp /opt/project
+    cd /opt/project/airflow 
+    docker compose up -d
   EOF
 }
