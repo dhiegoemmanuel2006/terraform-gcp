@@ -6,7 +6,6 @@ provider "google" {
 resource "google_compute_address" "static_ip" {
   name    = "ip-minha-vm-docker"  
   region  = "us-central1"        
-  project = "seu-projeto-id"
 }
 
 resource "google_compute_instance" "default" {
@@ -25,7 +24,7 @@ resource "google_compute_instance" "default" {
   network_interface {
     network = "default"
     access_config {
-      nat_ip = google_compute_address.static_ip.adress
+      nat_ip = google_compute_address.static_ip.address
     }
   }
 
@@ -39,7 +38,8 @@ resource "google_compute_instance" "default" {
     usermod -aG docker $(id -un)  # Add user to docker group
     echo "Docker, Compose, and Git installed successfully!"
     git clone https://github.com/dhiegoemmanuel2006/terraform-gcp /opt/project
-    cd /opt/project/airflow 
-    docker compose up -d -- build
+    cd /opt/project/airflow
+    mkdir -p dags logs plugins
+    docker-compose up -d --build
   EOF
 }
