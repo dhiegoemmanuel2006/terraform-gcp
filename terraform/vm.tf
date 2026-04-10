@@ -26,7 +26,7 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-minimal-2210-kinetic-amd64-v20230126"
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
     }
   }
 
@@ -49,6 +49,11 @@ resource "google_compute_instance" "default" {
     git clone https://github.com/dhiegoemmanuel2006/terraform-gcp /opt/project
     cd /opt/project/airflow
     mkdir -p dags logs plugins
-    docker-compose up -d --build
+    docker compose up -d --build
   EOF
+}
+
+output "vm_public_ip" {
+  value       = google_compute_address.static_ip.address
+  description = "O IP público da máquina virtual"
 }
