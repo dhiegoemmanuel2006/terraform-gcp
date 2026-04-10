@@ -22,7 +22,7 @@ resource "google_compute_instance" "default" {
   machine_type = "e2-small"
   zone         = "us-central1-a"
 
-  tags = ["airflow-acess"]
+  tags = ["airflow-access"] # Tag para permitir acesso via firewall
 
   boot_disk {
     initialize_params {
